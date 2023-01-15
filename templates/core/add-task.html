@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block container %}
+    
+
+    
+
+<div class="container mt-5">
+    <h1>Add Task</h1>
+    <form>
+        <div class="mb-3">
+          <label for="" class="form-label">Title</label>
+          <input type="text" class="form-control" id="" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Description</label>
+          <input type="text" class="form-control" id="">
+        </div>
+
+        <div class="mb-3 form-check">
+            <label class="form-check-label" for="exampleCheck1">Pick Date</label>
+            <input type="date" >
+          </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
+
+{% endblock container %}
