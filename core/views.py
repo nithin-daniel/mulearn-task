@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
+from django.contrib.auth import authenticate
 
 # Create your views here.
 def index(request):
@@ -38,4 +39,13 @@ def register(request):
 
 
 def signin(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(username=username, password=password)
+    if user is not None:
+     print('not found')
+    else:
+        print('user found')
+        return redirect('index')
+    # No backend authenticated the credentials
     return render(request, 'core/signin.html')
