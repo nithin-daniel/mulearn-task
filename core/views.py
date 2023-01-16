@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.contrib.auth import logout
 
 # Create your views here.
 def index(request):
@@ -49,3 +50,8 @@ def signin(request):
         return redirect('index')
     # No backend authenticated the credentials
     return render(request, 'core/signin.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('signin')
