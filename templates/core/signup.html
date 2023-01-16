@@ -4,29 +4,46 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-5">Signup Page</h1>
-    <form>
+    <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
         <div class="mb-3">
-            <label for="" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="" aria-describedby="emailHelp">
-            </div>
+            <label for="" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="" aria-describedby="emailHelp" name="first_name">
+        </div>
+        <div class="mb-3">
+                <label for="" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="" aria-describedby="emailHelp" name="last_name">
+        </div>
 
         <div class="mb-3">
                 <label for="" class="form-label">User Name</label>
-                <input type="text" class="form-control" id="" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="" aria-describedby="emailHelp" name="username">
         </div>
-   
+        
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+          </div>
+
         <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password1">
         </div>
 
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input type="password" class="form-control" id="exampleInputPassword1" name="password2">
             </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>    
+    <div>
+        
+        {% for messages in messages %}
+            <h3>{{messages}}</h3>
+        {% endfor %}
+            
+    </div>
 </div>
 {% endblock content %}
     
