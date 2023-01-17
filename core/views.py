@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
-
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 # Create your views here.
+@login_required(login_url='signin')
 def index(request):
     return render(request, 'core/index.html')
 
@@ -40,16 +42,35 @@ def register(request):
 
 
 def signin(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(username=username, password=password)
-    if user is not None:
-     print('not found')
+    if request.method == 'POST':
+        print('call cammed')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # print(username)
+        user = authenticate(username=username, password=password)
+        # print(user)
+    
+        if user is not None:
+            login(request, user)
+            # auth.login(request, user)
+            print('not found')
+            # return redirect('/')
+            # return render(request, 'core/index.html')
+            return HttpResponseRedirect(reverse('index'))
+            # return render(request, 'core/signin.html')
+            
+        else:
+            print('hey')
+            # return reverse('index')
+            # print('user found')
+            # return render(request, 'core/index.html')
+        # No backend authenticated the credentials
+        # return render(request, 'core/index.html')
     else:
-        print('user found')
-        return redirect('index')
-    # No backend authenticated the credentials
-    return render(request, 'core/signin.html')
+        # return HttpResponse('Hello')
+        return render(request, 'core/signin.html')
+        # return redirect('/')
+        # return HttpResponse('jgasdfkjh')
 
 
 def logout_view(request):

@@ -4,6 +4,8 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-5">Signin Page</h1>
+    <a href="{% url 'register' %}">Create Account</a>
+
     <form action="{% url 'signin' %}" method="POST">
         {% csrf_token %}
         <div class="mb-3">
