@@ -6,10 +6,15 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from .models import Todo
 # Create your views here.
 @login_required(login_url='signin')
 def index(request):
-    return render(request, 'core/index.html')
+    upcom = Todo.objects.all()
+    context = {
+        'upcom':upcom
+    }
+    return render(request, 'core/index.html',context)
 
 
 def register(request):
@@ -76,3 +81,28 @@ def signin(request):
 def logout_view(request):
     logout(request)
     return redirect('signin')
+
+
+def add_task(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        date = request.POST.get('date-picker')
+
+        if title is None or title == "":
+            raise ValueError('Title is required')
+        
+        if description is None or description == "":
+            raise ValueError('Description is required')
+        
+        if date is None or date == "":
+            raise ValueError('Date is required')
+
+        obj = Todo.objects.create(name=title,description=description,date=date)
+
+        print(title,description,date)
+    return render(request, 'core/add-task.html')
+
+
+def completed(request):
+    pass

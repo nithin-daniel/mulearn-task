@@ -7,19 +7,20 @@
 
 <div class="container mt-5">
     <h1>Add Task</h1>
-    <form>
+    <form action="{% url 'add_task' %}" method="POST">
+      {% csrf_token %}
         <div class="mb-3">
           <label for="" class="form-label">Title</label>
-          <input type="text" class="form-control" id="" aria-describedby="emailHelp">
+          <input type="text" class="form-control" id="" aria-describedby="emailHelp" name="title">
         </div>
         <div class="mb-3">
           <label for="" class="form-label">Description</label>
-          <input type="text" class="form-control" id="">
+          <input type="text" class="form-control" id="" name="description">
         </div>
 
         <div class="mb-3 form-check">
             <label class="form-check-label" for="exampleCheck1">Pick Date</label>
-            <input type="date" >
+            <input type="date" name="date-picker">
           </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
