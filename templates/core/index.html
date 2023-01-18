@@ -44,7 +44,7 @@
     </div>
 
     <div class="col">
-      <h1>Upcomming List</h1>
+      <h1>Upcoming List</h1>
       <ul class="list-group">
         
         <!-- {% for upcom in upcom %}
@@ -64,11 +64,12 @@
     <div class="col">
       <h1>Time Expired List</h1>
       <ul class="list-group">
-        <li class="list-group-item">An item <a href="" class="btn btn-danger ml-auto">Delete</a></li>
-        <li class="list-group-item">A second item<a href="" class="btn btn-danger ml-auto">Delete</a></li>
-        <li class="list-group-item">A third item<a href="" class="btn btn-danger ml-auto">Delete</a></li>
-        <li class="list-group-item">A fourth item<a href="" class="btn btn-danger ml-auto">Delete</a></li>
-        <li class="list-group-item">And a fifth one<a href="" class="btn btn-danger ml-auto">Delete</a></li>
+        
+        {% for expired_todos in expired_todos %}
+        <li class="list-group-item">{{expired_todos.name}}<a href="" class="btn btn-danger ml-auto">Delete</a></li>
+        
+        {% endfor %}
+          
       </ul>
     </div>
   </div>

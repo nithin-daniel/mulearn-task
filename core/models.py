@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import date
 # Create your models here.
 
 
@@ -15,9 +15,16 @@ class Todo(models.Model):
     description = models.TextField()
     date = models.DateTimeField()
 
+# Time expire code
+    # def is_expired(self):
+    #     # if self.date < datetime.datetime.now()
+    #     return False if self.date.date()<date.today() else True
 
     def __str__(self):
         return self.name
     
+
+
+
     
 

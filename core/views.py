@@ -7,17 +7,41 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .models import Todo
+from datetime import date
 # Create your views here.
 @login_required(login_url='signin')
 def index(request):
-    upcom_false = Todo.objects.filter(is_completed=False)
-    upcom_true = Todo.objects.filter(is_completed=True)
+    incomplete_todos = Todo.objects.filter(is_completed=False)
+    completed_todos = Todo.objects.filter(is_completed=True)
+    active_todos = []
+    expired_todos = []
+    print(date.today())
+    for todo in incomplete_todos:
+        print(todo.date)
+        # if todo.is_expired:
+        #     print(todo)
+        #     expired_todos.append(todo)
+        # else:
+        #     active_todos.append(todo)
+        if todo.date.date() < date.today():
+            print('expired')
+            expired_todos.append(todo)
+        else:
+            print('active')
+            active_todos.append(todo)
+    
+    print(active_todos)
+    print(expired_todos)
+
+
+
     # compl = Completed.objects.all()
     context = {
         # 'upcom':upcom,
         # 'compl':compl,
-        'upcom_false' :upcom_false,
-        'upcom_true': upcom_true,
+        'upcom_false' :active_todos,
+        'upcom_true': completed_todos,
+        'expired_todos':expired_todos
 
     }
     return render(request, 'core/index.html',context)
