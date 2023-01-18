@@ -30,11 +30,16 @@
       <h1>Completed List</h1>
       <ul class="list-group">
         
-        {% for compl in compl %}
+        <!-- {% for compl in compl %}
         
-        <li class="list-group-item">{{compl.name}}<a href="" class="btn btn-danger ml-auto">Delete</a></li>
+        <li class="list-group-item">{{compl.name}}<a href="{% url 'completed_delete' compl.id %}" class="btn btn-danger ml-auto">Delete</a></li>
+        {% endfor %} -->
+
+        {% for compl in upcom_true  %}
+        
+        <li class="list-group-item">{{compl.name}}<a href="{% url 'completed_delete' compl.id %}" class="btn btn-danger ml-auto">Delete</a></li>
         {% endfor %}
-          
+
       </ul>
     </div>
 
@@ -42,7 +47,12 @@
       <h1>Upcomming List</h1>
       <ul class="list-group">
         
-        {% for upcom in upcom %}
+        <!-- {% for upcom in upcom %}
+        <li class="list-group-item">{{upcom.name}}<a href="{% url 'completed'  upcom.id %} " class="btn btn-success ml-auto">Done</a></li>
+        
+        {% endfor %} -->
+
+        {% for upcom in upcom_false %}
         <li class="list-group-item">{{upcom.name}}<a href="{% url 'completed'  upcom.id %} " class="btn btn-success ml-auto">Done</a></li>
         
         {% endfor %}

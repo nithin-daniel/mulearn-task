@@ -6,15 +6,19 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import Todo,Completed
+from .models import Todo
 # Create your views here.
 @login_required(login_url='signin')
 def index(request):
-    upcom = Todo.objects.all()
-    compl = Completed.objects.all()
+    upcom_false = Todo.objects.filter(is_completed=False)
+    upcom_true = Todo.objects.filter(is_completed=True)
+    # compl = Completed.objects.all()
     context = {
-        'upcom':upcom,
-        'compl':compl,
+        # 'upcom':upcom,
+        # 'compl':compl,
+        'upcom_false' :upcom_false,
+        'upcom_true': upcom_true,
+
     }
     return render(request, 'core/index.html',context)
 
@@ -102,16 +106,24 @@ def add_task(request):
 
         obj = Todo.objects.create(name=title,description=description,date=date)
 
-        print(title,description,date)
-    return render(request, 'core/add-task.html')
+        # print(title,description,date)
+        return redirect('/')
+    else:
+        return render(request, 'core/add-task.html')
 
 
 def completed(request,id):
     # print(id)
     obj = Todo.objects.get(id=id)
-    compl = Completed.objects.create(name=obj.name,description=obj.description,date=obj.date)
-    # print(compl)
-    obj.delete()
+    # print(obj)
+    obj.is_completed = True
+    print(obj.is_completed)
+    obj.save()
 
-    print(obj)
+
+    # print(obj)
     return redirect('/')
+
+def completed_delete(request,id):
+    print(id)
+    

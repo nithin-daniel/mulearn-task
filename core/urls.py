@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout/',views.logout_view,name="logout"),
     path('add-task/',views.add_task,name="add_task"),
     path('completed/<int:id>',views.completed,name="completed"),
+    path('completed_delete/<int:id>',views.completed,name="completed_delete"),
 ]
