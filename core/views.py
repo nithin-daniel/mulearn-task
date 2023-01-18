@@ -117,13 +117,23 @@ def completed(request,id):
     obj = Todo.objects.get(id=id)
     # print(obj)
     obj.is_completed = True
-    print(obj.is_completed)
+    # print(obj.is_completed)
     obj.save()
-
-
     # print(obj)
     return redirect('/')
 
 def completed_delete(request,id):
+    # print(id)
+    obj = Todo.objects.get(id=id)
+    # print(obj)
+    # obj.is_completed = True
+    # print(obj.is_completed)
+    print('logging')
+    obj.delete()
+    print('deleted')
+    # print(obj)
+    return redirect('/')
+
+def time_expired(request,id):
     print(id)
     
