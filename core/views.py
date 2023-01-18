@@ -77,36 +77,39 @@ def register(request):
 
 
 def signin(request):
-    if request.method == 'POST':
-        print('call cammed')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        # print(username)
-        user = authenticate(username=username, password=password)
-        # print(user)
-    
-        if user is not None:
-            login(request, user)
-            # auth.login(request, user)
-            print('not found')
-            # return redirect('/')
-            # return render(request, 'core/index.html')
-            return HttpResponseRedirect(reverse('index'))
-            # return render(request, 'core/signin.html')
-            
-        else:
-            print('hey')
-            # return reverse('index')
-            # print('user found')
-            # return render(request, 'core/index.html')
-        # No backend authenticated the credentials
-        # return render(request, 'core/index.html')
+    if request.user.is_authenticated:
+        return redirect('/') # or somewhere else or last url
     else:
-        # return HttpResponse('Hello')
-        return render(request, 'core/signin.html')
-        # return redirect('/')
-        # return HttpResponse('jgasdfkjh')
-
+        if request.method == 'POST':
+            print('call cammed')
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            # print(username)
+            user = authenticate(username=username, password=password)
+            # print(user)
+        
+            if user is not None:
+                login(request, user)
+                # auth.login(request, user)
+                print('not found')
+                # return redirect('/')
+                # return render(request, 'core/index.html')
+                return HttpResponseRedirect(reverse('index'))
+                # return render(request, 'core/signin.html')
+                
+            else:
+                print('hey')
+                # return reverse('index')
+                # print('user found')
+                # return render(request, 'core/index.html')
+            # No backend authenticated the credentials
+            # return render(request, 'core/index.html')
+        else:
+            # return HttpResponse('Hello')
+            return render(request, 'core/signin.html')
+            # return redirect('/')
+            # return HttpResponse('jgasdfkjh')
+   
 
 def logout_view(request):
     logout(request)
