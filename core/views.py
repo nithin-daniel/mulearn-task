@@ -6,13 +6,15 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import Todo
+from .models import Todo,Completed
 # Create your views here.
 @login_required(login_url='signin')
 def index(request):
     upcom = Todo.objects.all()
+    compl = Completed.objects.all()
     context = {
-        'upcom':upcom
+        'upcom':upcom,
+        'compl':compl,
     }
     return render(request, 'core/index.html',context)
 
@@ -104,5 +106,12 @@ def add_task(request):
     return render(request, 'core/add-task.html')
 
 
-def completed(request):
-    pass
+def completed(request,id):
+    # print(id)
+    obj = Todo.objects.get(id=id)
+    compl = Completed.objects.create(name=obj.name,description=obj.description,date=obj.date)
+    # print(compl)
+    obj.delete()
+
+    print(obj)
+    return redirect('/')
