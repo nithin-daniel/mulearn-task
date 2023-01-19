@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants as messages
+import dj_database_url
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!)g2e0&m-n3*ow&8y-+ag!!tw^@hwf7nsb^7u9y6wx3mk18(vm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['']
 
 
 # Application definition
@@ -82,7 +84,9 @@ DATABASES = {
     }
 }
 
-
+DATABASES = {
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
