@@ -11,8 +11,8 @@ from datetime import date
 # Create your views here.
 @login_required(login_url='signin')
 def index(request):
-    incomplete_todos = Todo.objects.filter(is_completed=False)
-    completed_todos = Todo.objects.filter(is_completed=True)
+    incomplete_todos = Todo.objects.filter(owner=request.user,is_completed=False)
+    completed_todos = Todo.objects.filter(owner=request.user,is_completed=True)
     active_todos = []
     expired_todos = []
     print(date.today())
@@ -109,6 +109,7 @@ def signin(request):
             return render(request, 'core/signin.html')
             # return redirect('/')
             # return HttpResponse('jgasdfkjh')
+    return render(request, 'core/signin.html')
    
 
 def logout_view(request):
@@ -118,6 +119,8 @@ def logout_view(request):
 
 def add_task(request):
     if request.method == 'POST':
+        user_id = request.user
+        print(user_id)
         title = request.POST.get('title')
         description = request.POST.get('description')
         date = request.POST.get('date-picker')
@@ -131,7 +134,7 @@ def add_task(request):
         if date is None or date == "":
             raise ValueError('Date is required')
 
-        obj = Todo.objects.create(name=title,description=description,date=date)
+        obj = Todo.objects.create(name=title,description=description,date=date,owner=user_id)
 
         # print(title,description,date)
         return redirect('/')
@@ -155,12 +158,12 @@ def delete_task(request,id):
     # print(obj)
     # obj.is_completed = True
     # print(obj.is_completed)
-    print('logging')
+    # print('logging')
     obj.delete()
-    print('deleted')
+    # print('deleted')
     # print(obj)
     return redirect('/')
 
-def time_expired(request,id):
-    print(id)
+# def time_expired(request,id):
+#     print(id)
     

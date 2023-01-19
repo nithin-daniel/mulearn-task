@@ -66,7 +66,7 @@
       <ul class="list-group">
         
         {% for expired_todos in expired_todos %}
-        <li class="list-group-item">{{expired_todos.name}}<a href="" class="btn btn-danger ml-auto">Delete</a></li>
+        <li class="list-group-item">{{expired_todos.name}}<a href="{% url 'delete_task' expired_todos.id %}" class="btn btn-danger ml-auto">Delete</a></li>
         
         {% endfor %}
           
