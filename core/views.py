@@ -149,7 +149,7 @@ def completed(request,id):
     # print(obj)
     return redirect('/')
 
-def completed_delete(request,id):
+def delete_task(request,id):
     # print(id)
     obj = Todo.objects.get(id=id)
     # print(obj)
