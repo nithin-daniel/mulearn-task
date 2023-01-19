@@ -49,12 +49,12 @@ def index(request):
 
 def register(request):
     if request.method == 'POST':
-        first_name = request.POST['first_name']    
-        last_name = request.POST['last_name']  
-        username = request.POST['username']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-        email = request.POST['email']
+        first_name = request.POST.get('first_name')  
+        last_name = request.POST.get('last_name')  
+        username = request.POST.get('username')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        email = request.POST.get('email')
 
         if password1 == password2:
             if User.objects.filter(username=username).exists():
